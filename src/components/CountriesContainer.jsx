@@ -21,10 +21,9 @@ export default function CountriesContainer() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-12 bg-gray-100">
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
+      {countries.map((country, i) => (
+        <CountryCard country={country} key={i} />
+      ))}
     </div>
   );
 }
