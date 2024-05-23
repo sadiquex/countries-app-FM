@@ -1,4 +1,4 @@
-import CountriesContainer from "./components/CountriesContainer";
+import CountriesList from "./components/CountriesList";
 import Header from "./components/Header";
 import SearchAndFilter from "./components/SearchAndFilter";
 import axios from "axios";
@@ -6,7 +6,14 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [countries, setCountries] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+
   const API_URL = `https://restcountries.com/v3.1/all`;
+
+  const darkModeHandler = () => {
+    setDarkMode(!darkMode);
+    document.body.classList.toggle("dark"); // toggle darkMode selector in tailwind config
+  };
 
   const getAllCountries = async () => {
     try {
@@ -23,10 +30,10 @@ export default function App() {
   }, []);
 
   return (
-    <div className="p-16 bg-very-dark-blue-bg">
-      <Header />
+    <div className="bg-very-light-gray-bg dark:bg-very-dark-blue-bg">
+      <Header darkModeHandler={darkModeHandler} darkMode={darkMode} />
       <SearchAndFilter countries={countries} />
-      <CountriesContainer countries={countries} />
+      <CountriesList countries={countries} />
     </div>
   );
 }
