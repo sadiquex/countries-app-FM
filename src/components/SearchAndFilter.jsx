@@ -2,35 +2,8 @@ import { IoSearch } from "react-icons/io5";
 import { useState } from "react";
 import axios from "axios";
 
-export default function SearchAndFilter() {
+export default function SearchAndFilter({ filterBySearch }) {
   const [input, setInput] = useState("");
-  const [countries, setCountries] = useState([]);
-  const [searchedCountries, setSearchedCountries] = useState([]);
-
-  const filterBySearch = async (userInput) => {
-    // return if nothing was typed
-    if (input.trim() === "") {
-      setCountries([]);
-      return;
-    } else {
-      try {
-        const response = await axios.get(
-          `https://restcountries.com/v3.1/name/${userInput}`
-        ); // pass the userInput
-        // filter by our search
-        console.log(
-          response.data.filter(
-            (country) =>
-              userInput &&
-              country.name.official.toLowerCase().includes(userInput)
-          )
-        );
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setSearchedCountries([]);
-      }
-    }
-  };
 
   const handleChange = (value) => {
     setInput(value);

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function App() {
   const [countries, setCountries] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
+  const [searchedCountries, setSearchedCountries] = useState([]);
 
   const API_URL = `https://restcountries.com/v3.1/all`;
 
@@ -18,7 +19,8 @@ export default function App() {
   const getAllCountries = async () => {
     try {
       const response = await axios.get(API_URL);
-      setCountries(response.data); // pass the response to our state setting function
+      setCountries(response.data);
+      setSearchedCountries(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -29,11 +31,24 @@ export default function App() {
     getAllCountries();
   }, []);
 
+  const filterBySearch = (userInput) => {
+    // return if nothing was typed
+    if (userInput.trim() === "") {
+      setSearchedCountries(countries); // reset to full list if input is empty
+    } else {
+      setSearchedCountries(
+        countries.filter((country) =>
+          country.name.official.toLowerCase().includes(userInput.toLowerCase())
+        )
+      );
+    }
+  };
+
   return (
     <div className="bg-very-light-gray-bg dark:bg-very-dark-blue-bg">
       <Header darkModeHandler={darkModeHandler} darkMode={darkMode} />
-      <SearchAndFilter countries={countries} />
-      <CountriesList countries={countries} />
+      <SearchAndFilter countries={countries} filterBySearch={filterBySearch} />
+      <CountriesList countries={searchedCountries} />
     </div>
   );
 }
