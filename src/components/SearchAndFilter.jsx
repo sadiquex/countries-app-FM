@@ -35,6 +35,7 @@ export default function SearchAndFilter({ filterBySearch, filterByContinent }) {
           className="bg-transparent outline-none border-none w-full"
           onChange={(e) => handleContinent(e.target.value)}
         >
+          <option value="">Select Continent</option>
           <option value="Africa">Africa</option>
           <option value="Asia">Asia</option>
           <option value="America">America</option>
