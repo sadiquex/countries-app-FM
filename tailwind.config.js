@@ -9,6 +9,12 @@ export default {
       lg: "1024px",
       xl: "1280px",
     },
+    container: {
+      center: true,
+      screens: {
+        xl: "1200px",
+      },
+    },
     extend: {
       colors: {
         "dark-blue-elements": "hsl(209, 23%, 22%)",

@@ -44,10 +44,26 @@ export default function App() {
     }
   };
 
+  const filterByContinent = (continent) => {
+    if (continent === "") {
+      setSearchedCountries(countries); // reset to full list if no continent is selected
+    } else {
+      setSearchedCountries(
+        countries.filter((country) =>
+          country.region.toLowerCase().includes(continent.toLowerCase())
+        )
+      );
+    }
+  };
+
   return (
     <div className="bg-very-light-gray-bg dark:bg-very-dark-blue-bg">
       <Header darkModeHandler={darkModeHandler} darkMode={darkMode} />
-      <SearchAndFilter countries={countries} filterBySearch={filterBySearch} />
+      <SearchAndFilter
+        countries={countries}
+        filterBySearch={filterBySearch}
+        filterByContinent={filterByContinent}
+      />
       <CountriesList countries={searchedCountries} />
     </div>
   );
